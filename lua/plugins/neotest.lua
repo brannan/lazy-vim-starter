@@ -5,14 +5,16 @@ return {
     "nvim-telescope/telescope.nvim",
     "antoinemadec/FixCursorHold.nvim",
     "nvim-neotest/neotest-jest",
+    "marilari88/neotest-vitest",
     "rouge8/neotest-rust",
   },
   config = function()
     require("neotest").setup({
       adapters = {
-        require('neotest-jest')({}),
-        require('neotest-rust')({
-          args = { "--nocapture" }
+        require("neotest-jest")({}),
+        require("neotest-vitest"),
+        require("neotest-rust")({
+          args = { "--nocapture" },
         }),
       },
       icons = {
@@ -29,14 +31,14 @@ return {
         running_animated = { "/", "|", "\\", "-", "/", "|", "\\", "-" },
         skipped = "s",
         unknown = "u",
-        watching = "w"
+        watching = "w",
       },
       status = {
         enabled = true,
         signs = true,
         virtual_text = true,
       },
-      highlights = {}
+      highlights = {},
     })
   end,
   -- stylua: ignore
