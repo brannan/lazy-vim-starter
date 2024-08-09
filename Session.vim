@@ -13,15 +13,12 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +6 ~/.config/nvim/lua/plugins/telescope.lua
+badd +40 ~/.config/nvim/lua/config/lazy.lua
+badd +9 ~/.config/nvim/lua/config/options.lua
+badd +2 ~/.config/nvim/init.lua
 argglobal
 %argdel
-edit ~/.config/nvim/lua/plugins/telescope.lua
-let s:save_splitbelow = &splitbelow
-let s:save_splitright = &splitright
-set splitbelow splitright
-let &splitbelow = s:save_splitbelow
-let &splitright = s:save_splitright
+edit ~/.config/nvim/init.lua
 wincmd t
 let s:save_winminheight = &winminheight
 let s:save_winminwidth = &winminwidth
@@ -30,26 +27,21 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 argglobal
-setlocal fdm=indent
-setlocal fde=0
+balt ~/.config/nvim/lua/config/options.lua
+setlocal fdm=expr
+setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
 setlocal fmr={{{,}}}
 setlocal fdi=#
 setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-2
-normal! zo
-4
-normal! zo
-5
-normal! zo
-let s:l = 6 - ((5 * winheight(0) + 33) / 66)
+let s:l = 2 - ((1 * winheight(0) + 43) / 87)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 6
-normal! 010|
+keepjumps 2
+normal! 0
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
